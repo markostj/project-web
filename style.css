@@ -3,7 +3,7 @@
 }
 body {
   margin: 0;
-  background-color: #d6d6d6;
+  background-color: rgb(207, 206, 206);
 }
 html {
   font-size: 16px;
@@ -11,57 +11,78 @@ html {
 
 .nav {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   background-color: #ffffff;
+  justify-content: space-around;
 }
-.nav__title {
+.title_logo {
   display: flex;
   align-items: center;
-}
-.nav__h1 {
-  font-size: 40px;
-  margin-left: 50px;
 }
 .nav__logo {
-  width: 100px;
+  width: 80px;
 }
-.nav__list {
-  display: flex;
-  list-style-type: none;
+.main__title {
+  margin: 0;
+  margin-left: 50px;
+  font-size: 40px;
+  color: black;
 }
 .nav__link {
-  padding: 20px;
-  text-decoration: none;
   color: black;
 }
 .nav__link:hover {
-  color: #6e6e6e;
-  border: 1px solid rgb(82, 82, 82);
+  font-weight: bold;
+}
+.nav__link {
+  margin-left: 5px;
+}
+.log {
+  background-color: rgb(0, 184, 138);
+}
+#modal-login {
+  background-color: rgb(160, 236, 217);
+}
+.sign {
+  background-color: rgb(2, 141, 206);
 }
 
-.modal {
-  display: none;
-  position: relative;
-  left: 0;
-  right: 0;
-  top: 300px;
-  background-color: #fafafa;
-  padding: 0;
-  max-height: 70%;
-  width: 55%;
-  margin: auto;
-  overflow-y: auto;
-  border-radius: 2px;
-  will-change: top;
+#modal-signup {
+  background-color: rgb(196, 236, 255);
 }
-.modal:focus {
-  outline: none;
+.modal-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
-.modal__content {
-  position: absolute;
-  height: calc(100% - 56px);
-  max-height: 100%;
-  width: 100%;
-  overflow-y: auto;
+.modal__title {
+  text-align: center;
+  font-size: 50px;
+}
+#signup-form,
+#login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.modal__btn {
+  padding: 20px;
+  color: #ffffff;
+  background-color: rgb(102, 102, 102);
+}
+.modal__btn:hover {
+  background-color: rgb(85, 85, 85);
+  font-weight: bold;
+}
+.modal__btn:active {
+  background-color: black;
+}
+
+.footer__copiright {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.footer__title {
+  font-size: 12px;
 }
