@@ -1,9 +1,15 @@
+let UID = "bla";
 auth.onAuthStateChanged(user => {
   if (user) {
-    db.collection("todos").onSnapshot(snapshot => {
-      setupTodos(snapshot.docs);
-      setupUI(user);
-    });
+    db.collection("todos").onSnapshot(
+      snapshot => {
+        setupTodos(snapshot.docs);
+        setupUI(user);
+      },
+      err => {
+        console.log(err.message);
+      }
+    );
   } else {
     setupUI();
     setupTodos([]);
@@ -13,12 +19,14 @@ auth.onAuthStateChanged(user => {
 const createForm = document.querySelector("#create-form");
 createForm.addEventListener("submit", e => {
   e.preventDefault();
-
+  console.log(UID);
   db.collection("todos")
     .add({
       //tu dohvacamo nasu kolekciju
       title: createForm["title"].value,
-      content: createForm["content"].value //trebamo dodati jos id-eve kako bi prepoznali kasnije za completed i order po kojima cemo moci drag&drop
+      content: createForm["content"].value,
+      uid: UID
+      //trebamo dodati jos id-eve kako bi prepoznali kasnije za completed i order po kojima cemo moci drag&drop
     }) // mozda isto dodati za timestamp kad je napravljeno
     .then(() => {
       const modal = document.querySelector("#modal-create");
@@ -37,15 +45,25 @@ signupForm.addEventListener("submit", e => {
 
   const email = signupForm["signup-email"].value;
   const password = signupForm["signup-password"].value; //napraviti provjere za email
-  if (email) {
-    console.log(`email je okej`);
-  }
 
-  auth.createUserWithEmailAndPassword(email, password).then(cred => {
-    const modal = document.querySelector("#modal-signup");
-    M.Modal.getInstance(modal).close();
-    signupForm.reset();
-  });
+  auth
+    .createUserWithEmailAndPassword(email, password)
+    .then(cred => {
+      UID = cred.user.uid;
+      console.log(UID);
+      return db
+        .collection("users")
+        .doc(cred.user.uid)
+        .set({
+          email: signupForm["signup-email"].value,
+          uid: cred.user.uid
+        });
+    })
+    .then(() => {
+      const modal = document.querySelector("#modal-signup");
+      M.Modal.getInstance(modal).close();
+      signupForm.reset();
+    });
 });
 
 //logout

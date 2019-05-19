@@ -2,7 +2,6 @@ const todosList = document.querySelector(".todos");
 const loggedOutLinks = document.querySelectorAll(".logged-out");
 const loggedInLinks = document.querySelectorAll(".logged-in");
 const accountDetails = document.querySelector(".account-details");
-
 const setupUI = user => {
   if (user) {
     const html = `
@@ -23,6 +22,7 @@ const setupTodos = data => {
   if (data.length) {
     let html = "";
     data.forEach(doc => {
+      //staviti da ispise samo kojima je uid jednak uid usera
       const todo = doc.data();
       const li = `
       <li>
