@@ -1,4 +1,3 @@
-let UID = "bla";
 auth.onAuthStateChanged(user => {
   if (user) {
     db.collection("todos").onSnapshot(
@@ -19,13 +18,12 @@ auth.onAuthStateChanged(user => {
 const createForm = document.querySelector("#create-form");
 createForm.addEventListener("submit", e => {
   e.preventDefault();
-  console.log(UID);
   db.collection("todos")
     .add({
       //tu dohvacamo nasu kolekciju
       title: createForm["title"].value,
       content: createForm["content"].value,
-      uid: UID
+      uid: localStorage["UID"]
       //trebamo dodati jos id-eve kako bi prepoznali kasnije za completed i order po kojima cemo moci drag&drop
     }) // mozda isto dodati za timestamp kad je napravljeno
     .then(() => {
@@ -49,7 +47,8 @@ signupForm.addEventListener("submit", e => {
   auth
     .createUserWithEmailAndPassword(email, password)
     .then(cred => {
-      UID = cred.user.uid;
+      localStorage["UID"] = cred.user.uid;
+      var UID = localStorage["UID"];
       console.log(UID);
       return db
         .collection("users")
@@ -83,6 +82,9 @@ loginForm.addEventListener("submit", e => {
   const password = loginForm["login-password"].value;
 
   auth.signInWithEmailAndPassword(email, password).then(cred => {
+    localStorage["UID"] = cred.user.uid;
+    var UID = localStorage["UID"];
+    console.log(UID);
     const modal = document.querySelector("#modal-login");
     M.Modal.getInstance(modal).close();
     loginForm.reset();
