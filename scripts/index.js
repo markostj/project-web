@@ -21,7 +21,10 @@ const setupUI = user => {
 const setupTodos = data => {
   if (data.length) {
     let html = "";
-    data.forEach(doc => {
+    data = data.filter(doc => {
+      return doc.data().uid == localStorage["UID"];
+    });
+    data.filter(doc => {
       //staviti da ispise samo kojima je uid jednak uid usera
       const todo = doc.data();
       const li = `
@@ -35,7 +38,8 @@ const setupTodos = data => {
 
     todosList.innerHTML = html;
   } else {
-    todosList.innerHTML = '<h4 class="login__h4">Login to view ToDo List</h4>';
+    todosList.innerHTML =
+      '<h4 class="login__h4">Login to view ToDo or add new item List</h4>';
   }
 };
 
