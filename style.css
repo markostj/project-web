@@ -84,6 +84,10 @@ html {
 .modal__btn:active {
   background-color: black;
 }
+.modals__error {
+  color: red;
+  text-align: center;
+}
 
 .login__h4 {
   background-color: rgb(207, 206, 206);

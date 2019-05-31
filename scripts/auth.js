@@ -23,6 +23,7 @@ createForm.addEventListener("submit", e => {
       //tu dohvacamo nasu kolekciju
       title: createForm["title"].value,
       content: createForm["content"].value,
+      category: createForm["category"].value,
       uid: localStorage["UID"]
       //trebamo dodati jos id-eve kako bi prepoznali kasnije za completed i order po kojima cemo moci drag&drop
     }) // mozda isto dodati za timestamp kad je napravljeno
@@ -62,6 +63,10 @@ signupForm.addEventListener("submit", e => {
       const modal = document.querySelector("#modal-signup");
       M.Modal.getInstance(modal).close();
       signupForm.reset();
+      signupForm.querySelector(".modals__error").innerHTML = "";
+    })
+    .catch(err => {
+      signupForm.querySelector(".modals__error").innerHTML = err.message;
     });
 });
 
@@ -81,12 +86,18 @@ loginForm.addEventListener("submit", e => {
   const email = loginForm["login-email"].value;
   const password = loginForm["login-password"].value;
 
-  auth.signInWithEmailAndPassword(email, password).then(cred => {
-    localStorage["UID"] = cred.user.uid;
-    var UID = localStorage["UID"];
-    console.log(UID);
-    const modal = document.querySelector("#modal-login");
-    M.Modal.getInstance(modal).close();
-    loginForm.reset();
-  });
+  auth
+    .signInWithEmailAndPassword(email, password)
+    .then(cred => {
+      localStorage["UID"] = cred.user.uid;
+      var UID = localStorage["UID"];
+      console.log(UID);
+      const modal = document.querySelector("#modal-login");
+      M.Modal.getInstance(modal).close();
+      loginForm.reset();
+      loginForm.querySelector(".modals__error").innerHTML = "";
+    })
+    .catch(err => {
+      loginForm.querySelector(".modals__error").innerHTML = err.message;
+    });
 });
