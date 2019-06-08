@@ -101,3 +101,21 @@ loginForm.addEventListener("submit", e => {
       loginForm.querySelector(".modals__error").innerHTML = err.message;
     });
 });
+
+//update email
+const changeForm = document.querySelector("#change-form");
+changeForm.addEventListener("submit", e => {
+  e.preventDefault();
+  const email = changeForm["change-email"].value;
+  console.log(email);
+  var user = firebase.auth().currentUser;
+  const modal = document.querySelector("#change-form");
+  user
+    .updateEmail(email)
+    .then(function() {
+      console.log("email changed");
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
