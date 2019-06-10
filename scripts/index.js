@@ -49,30 +49,114 @@ function clearAllTodoCards() {
   todosList.innerHTML = "";
 }
 
-function work() {
+function allTodos() {
+  clearAllTodoCards();
+  console.log("all");
+  let html = "";
+  db.collection("todos")
+    .get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        if (doc.data().uid === localStorage["UID"]) {
+          console.log(doc.id, " =>", doc.data());
+          const todo = doc.data();
+          const li = `
+            <li>
+            <button class="delete__btn">X</button>
+            <div class="collapsible-header ">${todo.title}</div>
+            <div class="collapsible-body ">${todo.content}</div>
+            </li>
+            `;
+          html += li;
+        }
+        return html;
+      });
+      todosList.innerHTML = html;
+    });
+}
+
+function workTodos() {
   clearAllTodoCards();
   console.log("work");
   let html = "";
-  const workTodos = data => {
-    data = data.filter(doc => {
-      if (
-        doc.data().uid === localStorage["UID"] &&
-        doc.data().category === "work"
-      ) {
-        const todo = doc.data();
-        const li = `
+  db.collection("todos")
+    .get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        if (
+          doc.data().uid === localStorage["UID"] &&
+          doc.data().category === "work"
+        ) {
+          console.log(doc.id, " =>", doc.data());
+          const todo = doc.data();
+          const li = `
             <li>
             <div class="collapsible-header ">${todo.title}</div>
             <div class="collapsible-body ">${todo.content}</div>
             </li>
             `;
-        html += li;
-      }
-      return html;
+          html += li;
+        }
+        return html;
+      });
+      todosList.innerHTML = html;
     });
+}
 
-    todosList.innerHTML = html;
-  };
+function schoolTodos() {
+  clearAllTodoCards();
+  console.log("school");
+  let html = "";
+  db.collection("todos")
+    .get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        if (
+          doc.data().uid === localStorage["UID"] &&
+          doc.data().category === "school"
+        ) {
+          console.log(doc.id, " =>", doc.data());
+          const todo = doc.data();
+          const li = `
+            <li>
+            <div class="collapsible-header ">${todo.title}</div>
+            <div class="collapsible-body ">${todo.content}</div>
+            </li>
+            `;
+          html += li;
+        }
+        return html;
+      });
+      todosList.innerHTML = html;
+    });
+}
+
+function otherTodos() {
+  clearAllTodoCards();
+  console.log("other");
+  let html = "";
+  db.collection("todos")
+    .get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        if (
+          doc.data().uid === localStorage["UID"] &&
+          doc.data().category === "other"
+        ) {
+          console.log(doc.id, " =>", doc.data());
+          const todo = doc.data();
+          const li = `
+            <li>
+            <div class="collapsible-header ">${todo.title}</div>
+            <div class="collapsible-body ">${todo.content}</div>
+            </li>
+            `;
+          html += li;
+        }
+        return html;
+      });
+      todosList.innerHTML = html;
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function() {
