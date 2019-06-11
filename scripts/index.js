@@ -7,7 +7,7 @@ const setupUI = user => {
     const html = `
       <p>Logged in as ${user.email}</p>  
       
-    `; //napraviti jos za account mijenjanje podataka tu bi trebalo ici
+    `;
     accountDetails.innerHTML = html;
     loggedInLinks.forEach(item => (item.style.display = "block"));
     loggedOutLinks.forEach(item => (item.style.display = "none"));
@@ -26,11 +26,11 @@ const setupTodos = data => {
       return doc.data().uid == localStorage["UID"];
     });
     data.filter(doc => {
-      //staviti da ispise samo kojima je uid jednak uid usera
       const todo = doc.data();
+      todoDeleteData = doc.id;
       const li = `
       <li>
-      <button class="delete__btn">X</button>
+      <button  onclick="deleteData(todoDeleteData)" class="delete__btn">X</button>
       <div class="collapsible-header ">${todo.title}</div>
       <div class="collapsible-body ">${todo.content}</div>
       </li>
@@ -60,9 +60,10 @@ function allTodos() {
         if (doc.data().uid === localStorage["UID"]) {
           console.log(doc.id, " =>", doc.data());
           const todo = doc.data();
+          todoDeleteData = doc.id;
           const li = `
             <li>
-            <button class="delete__btn">X</button>
+            <button  onclick="deleteData(todoDeleteData)" class="delete__btn">X</button>
             <div class="collapsible-header ">${todo.title}</div>
             <div class="collapsible-body ">${todo.content}</div>
             </li>
@@ -156,6 +157,20 @@ function otherTodos() {
         return html;
       });
       todosList.innerHTML = html;
+    });
+}
+
+//deleting data
+function deleteData(todoToDelete) {
+  console.log(todoToDelete);
+  db.collection("users")
+    .doc(todoToDelete)
+    .delete()
+    .then(function() {
+      console.log("Document successfully deleted!");
+    })
+    .catch(function(error) {
+      console.error("Error removing document: ", error);
     });
 }
 

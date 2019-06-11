@@ -25,7 +25,6 @@ createForm.addEventListener("submit", e => {
       content: createForm["content"].value,
       category: createForm["category"].value,
       uid: localStorage["UID"]
-      //trebamo dodati jos id-eve kako bi prepoznali kasnije za completed i order po kojima cemo moci drag&drop
     }) // mozda isto dodati za timestamp kad je napravljeno
     .then(() => {
       const modal = document.querySelector("#modal-create");
@@ -43,7 +42,7 @@ signupForm.addEventListener("submit", e => {
   e.preventDefault();
 
   const email = signupForm["signup-email"].value;
-  const password = signupForm["signup-password"].value; //napraviti provjere za email
+  const password = signupForm["signup-password"].value;
 
   auth
     .createUserWithEmailAndPassword(email, password)
@@ -119,3 +118,17 @@ changeForm.addEventListener("submit", e => {
       console.log(error);
     });
 });
+
+//deleting data
+function deleteData() {
+  console.log("delete");
+  db.collection("users")
+    .doc("49EKDzPs1tQZB0ZTZYDzOsJxwyP2")
+    .delete()
+    .then(function() {
+      console.log("Document successfully deleted!");
+    })
+    .catch(function(error) {
+      console.error("Error removing document: ", error);
+    });
+}

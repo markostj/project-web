@@ -96,6 +96,29 @@ html {
   font-size: 30px;
 }
 
+/* buttons */
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.btn__filter {
+  font-size: 20px;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.btn__filter + .btn__filter {
+  margin-left: 10px;
+}
+.btn__filter:active {
+  color: red;
+}
+.btn__filter:hover {
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #000000;
+}
+
 .footer__copiright {
   position: fixed;
   bottom: 0px;
