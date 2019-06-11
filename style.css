@@ -3,7 +3,7 @@
 }
 body {
   margin: 0;
-  background-color: rgb(207, 206, 206);
+  background-color: lightblue;
 }
 html {
   font-size: 16px;
@@ -12,7 +12,22 @@ html {
 .nav {
   display: flex;
   background-color: #ffffff;
+  flex-direction: row;
   justify-content: space-around;
+}
+@media (max-width: 900px) {
+  .nav {
+    flex-direction: column;
+    height: 120px;
+  }
+  .nav__list {
+    display: flex;
+    justify-content: center;
+  }
+  .nav__logo {
+    width: 80px;
+    margin-left: 30px;
+  }
 }
 .title_logo {
   display: flex;
@@ -94,7 +109,6 @@ html {
 }
 
 .login__h4 {
-  background-color: rgb(207, 206, 206);
   margin: 0;
   text-align: center;
   font-size: 30px;
@@ -142,7 +156,11 @@ html {
 .collapsible-body {
   background-color: rgb(117, 117, 117);
 }
-
+@media (max-width: 600px) {
+  .footer__copiright {
+    text-align: center;
+  }
+}
 .footer__copiright {
   position: fixed;
   bottom: 0px;
