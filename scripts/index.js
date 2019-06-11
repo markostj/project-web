@@ -27,10 +27,11 @@ const setupTodos = data => {
     });
     data.filter(doc => {
       const todo = doc.data();
-      todoDeleteData = doc.id;
+      console.log(doc.id);
+      deleteItem = doc.id;
       const li = `
-      <li>
-      <button  onclick="deleteData(todoDeleteData)" class="delete__btn">X</button>
+      <li class="todo-data">
+      <button  onclick="deleteData(deleteItem)" class="delete__btn">X</button>
       <div class="collapsible-header ">${todo.title}</div>
       <div class="collapsible-body ">${todo.content}</div>
       </li>
@@ -59,11 +60,11 @@ function allTodos() {
       querySnapshot.forEach(function(doc) {
         if (doc.data().uid === localStorage["UID"]) {
           console.log(doc.id, " =>", doc.data());
+          deleteItem = doc.id;
           const todo = doc.data();
-          todoDeleteData = doc.id;
           const li = `
-            <li>
-            <button  onclick="deleteData(todoDeleteData)" class="delete__btn">X</button>
+            <li class="todo-data">
+            <button  onclick="deleteData(deleteItem)" class="delete__btn">X</button>
             <div class="collapsible-header ">${todo.title}</div>
             <div class="collapsible-body ">${todo.content}</div>
             </li>
@@ -91,7 +92,7 @@ function workTodos() {
           console.log(doc.id, " =>", doc.data());
           const todo = doc.data();
           const li = `
-            <li>
+            <li class="todo-data">
             <div class="collapsible-header ">${todo.title}</div>
             <div class="collapsible-body ">${todo.content}</div>
             </li>
@@ -119,7 +120,7 @@ function schoolTodos() {
           console.log(doc.id, " =>", doc.data());
           const todo = doc.data();
           const li = `
-            <li>
+            <li class="todo-data">
             <div class="collapsible-header ">${todo.title}</div>
             <div class="collapsible-body ">${todo.content}</div>
             </li>
@@ -147,7 +148,7 @@ function otherTodos() {
           console.log(doc.id, " =>", doc.data());
           const todo = doc.data();
           const li = `
-            <li>
+            <li class="todo-data">
             <div class="collapsible-header ">${todo.title}</div>
             <div class="collapsible-body ">${todo.content}</div>
             </li>
@@ -161,10 +162,10 @@ function otherTodos() {
 }
 
 //deleting data
-function deleteData(todoToDelete) {
-  console.log(todoToDelete);
-  db.collection("users")
-    .doc(todoToDelete)
+function deleteData(deleteItem) {
+  console.log(deleteItem);
+  db.collection("todos")
+    .doc(deleteItem)
     .delete()
     .then(function() {
       console.log("Document successfully deleted!");

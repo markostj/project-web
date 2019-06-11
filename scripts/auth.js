@@ -119,16 +119,15 @@ changeForm.addEventListener("submit", e => {
     });
 });
 
-//deleting data
-function deleteData() {
-  console.log("delete");
-  db.collection("users")
-    .doc("49EKDzPs1tQZB0ZTZYDzOsJxwyP2")
+//delete account
+function deleteUser() {
+  var user = firebase.auth().currentUser;
+  user
     .delete()
     .then(function() {
-      console.log("Document successfully deleted!");
+      // User deleted.
     })
     .catch(function(error) {
-      console.error("Error removing document: ", error);
+      // An error happened.
     });
 }
