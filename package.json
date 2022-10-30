@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/sebastijandumancic/osvit-practice-project#readme",
   "dependencies": {
-    "browser-sync": "^2.26.3"
+    "browser-sync": "^2.27.10"
   }
 }
